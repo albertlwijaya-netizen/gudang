@@ -1,0 +1,53 @@
+/* Sidebar Styling */
+.sidebar {
+    min-height: 100vh;
+    background: #1a1d20;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+
+.nav-link {
+    font-size: 0.9rem;
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+    margin-bottom: 4px;
+    transition: all 0.3s;
+}
+
+.nav-link:hover {
+    background: rgba(255,255,255,0.1);
+    transform: translateX(5px);
+}
+
+/* Card & Table Styling */
+.card {
+    border: none;
+    border-radius: 12px;
+}
+
+.table thead th {
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+}
+
+/* Status Stok Tipis */
+.stok-warning {
+    background-color: #fff3cd !important;
+    color: #856404;
+}
+
+/* Print Optimization */
+@media print {
+    .sidebar, .btn, .d-print-none, .modal, .alert {
+        display: none !important;
+    }
+    .col-md-10 {
+        width: 100% !important;
+        margin: 0 !important;
+    }
+    .card {
+        box-shadow: none !important;
+        border: 1px solid #ddd !important;
+    }
+}

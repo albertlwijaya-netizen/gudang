@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-truck me-2"></i>Manajemen Supplier</h2>
+    {% if session_role == 'admin' %}
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalSupplier">
+        <i class="bi bi-plus-lg"></i> Tambah Supplier
+    </button>
+    {% endif %}
+</div>
+
+<div class="card shadow-sm border-0">
+    <div class="card-body">
+        <table class="table table-hover align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>Nama Supplier</th>
+                    <th>Alamat</th>
+                    <th>Kontak</th>
+                    {% if session_role == 'admin' %}<th>Aksi</th>{% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for s in supplier %}
+                <tr>
+                    <td><strong>{{ s.nama_supplier }}</strong><br><small class="text-muted">{{ s.email }}</small></td>
+                    <td>{{ s.alamat }}</td>
+                    <td>{{ s.nomor_telepon }}</td>
+                    {% if session_role == 'admin' %}
+                    <td>
+                        <a href="/supplier/edit/{{ s.id_supplier }}" class="btn btn-sm btn-warning">Edit</a>
+                        <a href="/supplier/hapus/{{ s.id_supplier }}" class="btn btn-sm btn-danger" onclick="return confirm('Hapus supplier ini?')">Hapus</a>
+                    </td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Modal Tambah (Sama seperti sebelumnya) -->
+<div class="modal fade" id="modalSupplier" tabindex="-1">
+    <div class="modal-dialog">
+        <form action="/supplier/tambah" method="POST" class="modal-content">
+            <div class="modal-header"><h5>Tambah Supplier Baru</h5></div>
+            <div class="modal-body">
+                <div class="mb-3"><label>Nama</label><input type="text" name="nama" class="form-control" required></div>
+                <div class="mb-3"><label>Alamat</label><textarea name="alamat" class="form-control"></textarea></div>
+                <div class="mb-3"><label>Telp</label><input type="text" name="telp" class="form-control"></div>
+                <div class="mb-3"><label>Email</label><input type="email" name="email" class="form-control"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Simpan</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

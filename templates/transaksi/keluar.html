@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow border-0">
+            <div class="card-header bg-danger text-white py-3">
+                <h5 class="mb-0">Input Barang Keluar / Distribusi</h5>
+            </div>
+            <form action="/transaksi/keluar" method="POST" class="card-body">
+                <div class="mb-3">
+                    <label class="form-label">Pilih Barang</label>
+                    <select name="id_barang" class="form-select" required>
+                        <option value="">-- Pilih Barang --</option>
+                        {% for b in barangs %}
+                        <option value="{{ b.id_barang }}">{{ b.nama_barang }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Jumlah Keluar</label>
+                        <input type="number" name="jumlah" class="form-control" required min="1">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Tanggal</label>
+                        <input type="date" name="tanggal" class="form-control" required>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Tujuan / Penerima</label>
+                    <input type="text" name="tujuan" class="form-control" placeholder="Contoh: Toko Cabang A" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Keterangan</label>
+                    <textarea name="keterangan" class="form-control" rows="2"></textarea>
+                </div>
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-danger btn-lg">Simpan Barang Keluar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

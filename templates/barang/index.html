@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Manajemen Barang</h2>
+    {% if session_role == 'admin' %}
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalTambah">Tambah Barang</button>
+    {% endif %}
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Kode</th>
+                    <th>Nama</th>
+                    <th>Kategori</th>
+                    <th>Stok</th>
+                    <th>Harga Jual</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for b in barang %}
+                <tr>
+                    <td>{{ b.kode_barang }}</td>
+                    <td>{{ b.nama_barang }}</td>
+                    <td>{{ b.kategori }}</td>
+                    <td>{{ b.stok }} {{ b.satuan }}</td>
+                    <td>Rp {{ "{:,.0f}".format(b.harga_jual) }}</td>
+                    <td>
+                        {% if session_role == 'admin' %}
+                        <a href="/barang/hapus/{{ b.id_barang }}" class="btn btn-sm btn-danger" onclick="return confirm('Hapus?')">Hapus</a>
+                        {% else %}
+                        <span class="text-muted small">No Action</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Modal Tambah -->
+<div class="modal fade" id="modalTambah" tabindex="-1">
+    <div class="modal-dialog">
+        <form action="/barang/tambah" method="POST" class="modal-content">
+            <div class="modal-header"><h5>Tambah Barang Baru</h5></div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label>Kode Barang</label>
+                        <input type="text" name="kode" class="form-control" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label>Nama Barang</label>
+                        <input type="text" name="nama" class="form-control" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label>Kategori</label>
+                        <input type="text" name="kategori" class="form-control">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label>Satuan (Pcs/Kg/Box)</label>
+                        <input type="text" name="satuan" class="form-control">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label>Stok Awal</label>
+                        <input type="number" name="stok" class="form-control" value="0">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label>Stok Minimum</label>
+                        <input type="number" name="stok_min" class="form-control" value="5">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label>Harga Beli</label>
+                        <input type="number" name="harga_beli" class="form-control">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label>Harga Jual</label>
+                        <input type="number" name="harga_jual" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                <button type="submit" class="btn btn-primary">Simpan</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

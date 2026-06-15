@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow">
+            <div class="card-header bg-success text-white"><h5>Input Barang Masuk</h5></div>
+            <form action="/transaksi/masuk" method="POST" class="card-body">
+                <div class="mb-3">
+                    <label>Pilih Barang</label>
+                    <select name="id_barang" class="form-select" required>
+                        {% for b in barangs %}
+                        <option value="{{ b.id_barang }}">{{ b.nama_barang }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label>Supplier</label>
+                    <select name="id_supplier" class="form-select" required>
+                        {% for s in suppliers %}
+                        <option value="{{ s.id_supplier }}">{{ s.nama_supplier }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label>Jumlah</label>
+                        <input type="number" name="jumlah" class="form-control" required min="1">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label>Tanggal</label>
+                        <input type="date" name="tanggal" class="form-control" required value="{{ now }}">
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label>Keterangan</label>
+                    <textarea name="keterangan" class="form-control" rows="2"></textarea>
+                </div>
+                <button type="submit" class="btn btn-success w-100">Simpan Transaksi</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

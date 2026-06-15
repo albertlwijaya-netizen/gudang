@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>Laporan Barang Masuk</h3>
+<div class="card mb-4 shadow-sm">
+    <form method="POST" class="card-body row align-items-end">
+        <div class="col-md-4">
+            <label>Tanggal Awal</label>
+            <input type="date" name="tgl_awal" class="form-control" required>
+        </div>
+        <div class="col-md-4">
+            <label>Tanggal Akhir</label>
+            <input type="date" name="tgl_akhir" class="form-control" required>
+        </div>
+        <div class="col-md-4">
+            <button type="submit" class="btn btn-primary">Filter Laporan</button>
+            <button type="button" onclick="window.print()" class="btn btn-secondary">Cetak</button>
+        </div>
+    </form>
+</div>
+
+{% if laporan %}
+<div class="table-responsive bg-white p-3 border shadow-sm">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Tanggal</th>
+                <th>Nama Barang</th>
+                <th>Supplier</th>
+                <th>Jumlah</th>
+                <th>Keterangan</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for l in laporan %}
+            <tr>
+                <td>{{ l.tanggal }}</td>
+                <td>{{ l.nama_barang }}</td>
+                <td>{{ l.nama_supplier }}</td>
+                <td>{{ l.jumlah }}</td>
+                <td>{{ l.keterangan }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+{% endblock %}

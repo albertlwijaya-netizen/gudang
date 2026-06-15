@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow">
+            <div class="card-header bg-dark text-white"><h5>Edit Data Supplier</h5></div>
+            <form method="POST" class="card-body">
+                <div class="mb-3">
+                    <label>Nama Supplier</label>
+                    <input type="text" name="nama" class="form-control" value="{{ s.nama_supplier }}" required>
+                </div>
+                <div class="mb-3">
+                    <label>Alamat</label>
+                    <textarea name="alamat" class="form-control" rows="3">{{ s.alamat }}</textarea>
+                </div>
+                <div class="mb-3">
+                    <label>Nomor Telepon</label>
+                    <input type="text" name="telp" class="form-control" value="{{ s.nomor_telepon }}">
+                </div>
+                <div class="mb-3">
+                    <label>Email</label>
+                    <input type="email" name="email" class="form-control" value="{{ s.email }}">
+                </div>
+                <div class="d-flex justify-content-between">
+                    <a href="/supplier" class="btn btn-outline-secondary">Batal</a>
+                    <button type="submit" class="btn btn-dark">Update Supplier</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

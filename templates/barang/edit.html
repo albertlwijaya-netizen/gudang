@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Edit Data Barang</h5>
+            </div>
+            <form method="POST" class="card-body">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label>Kode Barang</label>
+                        <input type="text" name="kode" class="form-control" value="{{ item.kode_barang }}" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label>Nama Barang</label>
+                        <input type="text" name="nama" class="form-control" value="{{ item.nama_barang }}" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label>Kategori</label>
+                        <input type="text" name="kategori" class="form-control" value="{{ item.kategori }}">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label>Satuan</label>
+                        <input type="text" name="satuan" class="form-control" value="{{ item.satuan }}">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label>Stok Minimum</label>
+                        <input type="number" name="stok_min" class="form-control" value="{{ item.stok_minimum }}">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label>Harga Beli</label>
+                        <input type="number" name="harga_beli" class="form-control" value="{{ item.harga_beli }}">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label>Harga Jual</label>
+                        <input type="number" name="harga_jual" class="form-control" value="{{ item.harga_jual }}">
+                    </div>
+                </div>
+                <hr>
+                <div class="d-flex justify-content-between">
+                    <a href="/barang" class="btn btn-secondary">Kembali</a>
+                    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

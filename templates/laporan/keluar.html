@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h3>Laporan Barang Keluar</h3>
+    <button onclick="window.print()" class="btn btn-outline-secondary d-print-none">
+        <i class="bi bi-printer"></i> Cetak Laporan
+    </button>
+</div>
+
+<div class="card mb-4 shadow-sm d-print-none">
+    <form method="POST" class="card-body row align-items-end">
+        <div class="col-md-4">
+            <label class="form-label small fw-bold">Dari Tanggal</label>
+            <input type="date" name="tgl_awal" class="form-control" required>
+        </div>
+        <div class="col-md-4">
+            <label class="form-label small fw-bold">Sampai Tanggal</label>
+            <input type="date" name="tgl_akhir" class="form-control" required>
+        </div>
+        <div class="col-md-4">
+            <button type="submit" class="btn btn-primary w-100">Filter Data</button>
+        </div>
+    </form>
+</div>
+
+{% if laporan %}
+<div class="table-responsive bg-white p-3 border shadow-sm">
+    <table class="table table-bordered align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th>Tanggal</th>
+                <th>Nama Barang</th>
+                <th>Jumlah</th>
+                <th>Tujuan</th>
+                <th>Keterangan</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for l in laporan %}
+            <tr>
+                <td>{{ l.tanggal }}</td>
+                <td>{{ l.nama_barang }}</td>
+                <td><span class="badge bg-danger">- {{ l.jumlah }}</span></td>
+                <td>{{ l.tujuan }}</td>
+                <td>{{ l.keterangan }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="alert alert-info">Silakan pilih rentang tanggal untuk menampilkan laporan.</div>
+{% endif %}
+{% endblock %}

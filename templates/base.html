@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logistik Sembako</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <!-- Link ke CSS Custom kamu -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    <style>
+        body { background-color: #f8f9fa; }
+        .sidebar { min-height: 100vh; background: #212529; color: white; }
+        .nav-link { color: rgba(255,255,255,0.8); transition: 0.3s; }
+        .nav-link:hover { color: white; background: #343a40; border-radius: 5px; }
+        .nav-link.active { background: #0d6efd; color: white; }
+        .sidebar-header { border-bottom: 1px solid #3d4145; margin-bottom: 1rem; padding-bottom: 1rem; }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav class="col-md-2 d-none d-md-block sidebar py-4 px-3 position-fixed">
+                <div class="sidebar-header">
+                    <h4 class="text-center text-primary fw-bold">SembakoLog</h4>
+                    <div class="text-center mt-3">
+                        <small class="text-muted d-block">Halo,</small> 
+                        <strong>{{ session_user }}</strong>
+                        <br><span class="badge bg-secondary">{{ session_role }}</span>
+                    </div>
+                </div>
+
+                <ul class="nav flex-column">
+                    <li class="nav-item"><a class="nav-link mb-2" href="{{ url_for('dashboard') }}"><i class="bi bi-speedometer2 me-2"></i> Dashboard</a></li>
+                    
+                    <li class="nav-item"><a class="nav-link mb-2" href="{{ url_for('barang') }}"><i class="bi bi-box-seam me-2"></i> Master Barang</a></li>
+                    
+                    <!-- MENU SUPPLIER YANG BARU DITAMBAHKAN -->
+                    <li class="nav-item"><a class="nav-link mb-2" href="{{ url_for('supplier') }}"><i class="bi bi-truck me-2"></i> Data Supplier</a></li>
+                    
+                    <li class="nav-item"><a class="nav-link mb-2" href="{{ url_for('transaksi_masuk') }}"><i class="bi bi-arrow-down-left-circle me-2"></i> Barang Masuk</a></li>
+                    
+                    <li class="nav-item"><a class="nav-link mb-2" href="{{ url_for('transaksi_keluar') }}"><i class="bi bi-arrow-up-right-circle me-2"></i> Barang Keluar</a></li>
+                    
+                    <li class="nav-item"><a class="nav-link mb-2" href="{{ url_for('monitoring') }}"><i class="bi bi-display me-2"></i> Monitoring Stok</a></li>
+                    
+                    <hr class="text-muted">
+                    
+                    <!-- LAPORAN DIPISAH BIAR JELAS -->
+                    <li class="nav-item"><a class="nav-link mb-2" href="{{ url_for('laporan_masuk') }}"><i class="bi bi-file-earmark-arrow-down me-2"></i> Laporan Masuk</a></li>
+                    
+                    <li class="nav-item"><a class="nav-link mb-2" href="{{ url_for('laporan_keluar') }}"><i class="bi bi-file-earmark-arrow-up me-2"></i> Laporan Keluar</a></li>
+                    
+                    <li class="nav-item"><a class="nav-link text-danger mt-4" href="{{ url_for('logout') }}"><i class="bi bi-box-arrow-right me-2"></i> Logout</a></li>
+                </ul>
+            </nav>
+
+            <!-- Main Content -->
+            <main class="col-md-10 ms-sm-auto px-md-4 py-4">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                  {% if messages %}
+                    {% for category, message in messages %}
+                      <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                      </div>
+                    {% endfor %}
+                  {% endif %}
+                {% endwith %}
+
+                {% block content %}{% endblock %}
+            </main>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Link ke JS Custom kamu -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

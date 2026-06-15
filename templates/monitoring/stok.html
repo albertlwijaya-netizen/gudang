@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="mb-4">Monitoring Stok Sembako</h2>
+
+<div class="row mb-3">
+    <div class="col-md-4">
+        <div class="input-group">
+            <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
+            <input type="text" id="searchInput" class="form-control" placeholder="Cari Kode atau Nama Barang...">
+        </div>
+    </div>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0" id="stokTable">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Kode</th>
+                        <th>Nama Barang</th>
+                        <th>Stok Saat Ini</th>
+                        <th>Batas Minimum</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in barang %}
+                    <tr class="{% if item.stok <= item.stok_minimum %}stok-warning{% endif %}">
+                        <td>{{ item.kode_barang }}</td>
+                        <td>{{ item.nama_barang }}</td>
+                        <td><strong>{{ item.stok }}</strong> {{ item.satuan }}</td>
+                        <td>{{ item.stok_minimum }}</td>
+                        <td>
+                            {% if item.stok <= item.stok_minimum %}
+                            <span class="badge bg-danger">HARUS RE-STOK</span>
+                            {% else %}
+                            <span class="badge bg-success">STOK AMAN</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Load Custom JS -->
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+{% endblock %}
